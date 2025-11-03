@@ -1,0 +1,144 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>UTS Logika Matematika - Level 4</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background-color: #f4f9ff;
+      color: #333;
+      margin: 40px;
+    }
+    h1 {
+      color: #004aad;
+    }
+    .info {
+      margin-bottom: 20px;
+      padding: 10px;
+      background-color: #eaf2ff;
+      border-left: 4px solid #004aad;
+    }
+    label, input {
+      display: block;
+      margin: 10px 0;
+    }
+    button {
+      background-color: #004aad;
+      color: white;
+      border: none;
+      padding: 8px 16px;
+      cursor: pointer;
+    }
+    button:hover {
+      background-color: #00327a;
+    }
+    #hasil, #argumen {
+      margin-top: 20px;
+      font-weight: bold;
+      font-size: 18px;
+    }
+    #argumen {
+      font-weight: normal;
+      color: #222;
+      background-color: #eaf2ff;
+      padding: 15px;
+      border-left: 4px solid #004aad;
+    }
+    .checkbox-container {
+      margin-top: 10px;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+    .penjelasan {
+      margin-top: 30px;
+      background-color: #eaf2ff;
+      padding: 15px;
+      border-left: 4px solid #004aad;
+    }
+  </style>
+</head>
+<body>
+  <h1>UTS Logika Matematika</h1>
+
+  <div class="info">
+    <p><strong>NIM:</strong> 256512011</p>
+    <p><strong>Nama:</strong> Vika Kania Aulia</p>
+    <p><strong>Kelas:</strong> Teknik Informatika</p>
+    <p><strong>Dosen:</strong> Iin Sholihin, S.Kom., M.Kom.</p>
+    <p><strong>Kampus:</strong> Universitas Ma’soem</p>
+  </div>
+
+  <div class="checkbox-container">
+    <input type="checkbox" id="cekEmas" onchange="toggleInputEmas()">
+    <label for="cekEmas">Jumlah Emas:</label>
+  </div>
+
+  <input type="number" id="emas" placeholder="85"> disable value="0">
+
+  <label for="haul">Lama Kepemilikan (tahun):</label>
+  <input type="number" id="haul" placeholder="1">
+
+  <button onclick="cekZakat()">Cek Status Zakat</button>
+
+  <div id="hasil"></div>
+  <div id="argumen"></div>
+
+  <div class="penjelasan" id="penjelasan">
+    <h3>Hukum Logika dalam Keputusan Zakat</h3>
+    <p>
+      Hukum logika pada perhitungan zakat di atas yaitu <strong>Hukum Konjungsi (AND)</strong> dan
+      <strong>Hukum Negasi (NOT)</strong>.
+      <br><br>
+      - <strong>Hukum Konjungsi (AND)</strong> hasil benar hanya jika kedua syarat benar, yaitu jumlah emas ≥ 85 gram <em></em> dimiliki ≥ 1 tahun. 
+      <br>
+      - <strong>Negasi (NOT)</strong>: jika salah satu syarat tidak terpenuhi, maka hasilnya "Tidak Wajib Zakat". 
+      <br><br>
+      Bentuk silogisme logisnya:
+      <br>
+      <code>
+        premis 1: Setiap orang yang memiliki emas ≥ 85 gram selama ≥ 1 tahun waib zakat. <br> 
+        premis 2: Anda memiliki emas X gram selama Y tahun. <br> 
+        Kesimpulan: Maka, Anda (wajib/tidak wajib) zakat.
+      </code> 
+    </p>
+    </div>
+      
+  <script>
+    // Fungsi untuk mengaktifkan/nonaktifkan input emas
+    function toggleInputEmas() {
+      let checkbox = document.getElemenById('cekEmas');
+      let inputEmas = document.getElemenById('emas');
+
+      if (checkbox.checked) {
+        inputEmas.disabled = false;
+        inputEmas.value ='';
+      } else {
+        inputEmas.disabled = true;
+        inputEmas.value = 0;
+      }
+    }
+
+    // Fungsi utama: menentukan wajib zakat & menampilkan argumen logis
+    function cekZakat() {
+      let emas = parseFloat(document.getElementById('emas').value);
+      let haul = parseFloat(document.getElementById('haul').value);
+      let hasil = document.getElementById('hasil');
+      let argumen = document.getElemenById('argumen');
+
+      // logika konjungsi: wajib zakat hanya jika kedua syarat benar
+      if (emas >= 85 && haul >= 1) {
+        hasil.textContent = "Wajib Zakat ✅";
+        hasil.style.color = "green";
+        argumen.innerHTML = 'Saat ini Anda <strong>diwajibkan untuk mengeluarkan zakat</strong> karena Anda mempunyai simpanan <strong>${emas} gram emas</strong> selama <strong>${haul} tahun</strong>.';
+      } else {
+        hasil.textContent = "Tidak Wajib Zakat ❌";
+        hasil.style.color = "red";
+        argumen.innerHTML ='Anda <strong>belum diwajibkan zakat</strong> karena jumlah emas Anda <strong>${emas} gram</strong> atau lama kepemilikan <strong>${haul} tahun</strong> belum memenuhi syarat nisab (≥ 85 gram) dan haul (≥ 1 tahun).';
+      }
+    }
+  </script>
+</body>
+</html>
